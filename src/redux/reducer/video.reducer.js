@@ -19,9 +19,9 @@ export const homeVideoReducer = (state = initialState, action) => {
                 videos: payload.videos,
                 loading: false,
                 nextPageToken:payload.nextPageToken,
-                
+                activeCategory:payload.category
             }
-        case HOME_VIDEOS_FAIL:
+        case HOME_VIDEOS_FAIL: 
             return {
                 ...state,
                 loading: false,
