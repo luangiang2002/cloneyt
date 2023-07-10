@@ -5,6 +5,7 @@ import request from '../../api'
 import moment from 'moment'
 import numeral from 'numeral'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useNavigate } from 'react-router-dom'
 const Video = ({ video }) => {
   const { id, snippet: {
     publishedAt,
@@ -45,8 +46,12 @@ const Video = ({ video }) => {
     }
     get_chanel_icon()
   }, [channelId])
+  const navigate=useNavigate()
+  const handleClick=()=>{
+
+  }
   return (
-    <div className="video">
+    <div className="video" onClick={handleClick}>
       <div className="video_top">
         {/* <img src={medium.url} alt="" /> */}
         <LazyLoadImage src={medium.url} effect='blur'/>

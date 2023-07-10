@@ -8,6 +8,7 @@ import './app.scss'
 import LoginScreen from './screens/loginScreen/LoginScreen'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import WatchScreen from './component/watchScreen/WatchScreen'
 const Layout = ({ children }) => {
   const [sidebar, toggleSidebar] = useState(false);
   const handleToggleSidebar = () => toggleSidebar(value => !value)
@@ -32,7 +33,7 @@ const App = () => {
     if (!loading && !accessToken) {
       navigate('/auth')
     }
-  }, [accessToken, loading,navigate])
+  }, [accessToken, loading, navigate])
   return (
     <Routes>
       <Route path='/' element={
@@ -46,6 +47,13 @@ const App = () => {
           <h1>Search results</h1>
         </Layout>
       }></Route>
+      <Route path='/watch/:id' element={
+        <Layout>
+          <WatchScreen />
+        </Layout>
+      }></Route>
+      {/* <Route path='' element={}></Route>
+      <Route path='' element={}></Route> */}
       <Route
         path="*"
         element={<Navigate to="/" replace />}
