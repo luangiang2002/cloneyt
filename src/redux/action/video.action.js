@@ -62,3 +62,27 @@ export const getVideoByCategory=(keyword)=>async (dispatch,getState)=>{
             })
     }
 }
+
+export const getVideoId=(id)=>async dispatch=>{
+    try {
+        dispatch({
+            type:Types.SELECTED_VIDEOS_REQUEST,
+        })
+        const {data}=await request('/videos',{
+            params:{
+                part:'snippet,contentDetails',
+                id:id
+            }
+        })
+        dispatch({
+            type:Types.SELECTED_VIDEO_SUCCESS,
+            payload:data.items[0]
+        })
+    } catch (error) {
+        console.log(error.message)
+        dispatch({
+            type:Types.SELECTED_VIDEOS_FAIL,
+            payload:error.message
+        })
+    }
+}

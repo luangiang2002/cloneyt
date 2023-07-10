@@ -48,7 +48,7 @@ const Video = ({ video }) => {
   }, [channelId])
   const navigate=useNavigate()
   const handleClick=()=>{
-
+      navigate(`/watch/${_videoId}`)
   }
   return (
     <div className="video" onClick={handleClick}>
