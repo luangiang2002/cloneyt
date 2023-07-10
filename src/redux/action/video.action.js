@@ -1,7 +1,7 @@
 import * as Types from '../actionType'
 import request from '../../api'
 
-export const getPopularVideo=()=>async dispatch=>{
+export const getPopularVideo=()=>async (dispatch,getState)=>{
     try {
         dispatch({
             type:Types.HOME_VIDEOS_REQUEST,
@@ -12,7 +12,7 @@ export const getPopularVideo=()=>async dispatch=>{
                 chart:'mostPopular',
                 regionCode:'US',
                 maxResults:20,
-                pageToken:'',
+                pageToken:getState().homeVideos.nextPageToken,
             }
         })
         dispatch({

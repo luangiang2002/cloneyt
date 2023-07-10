@@ -1,28 +1,49 @@
 import React, { useEffect } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container } from 'react-bootstrap'
 import CategoriesBar from '../../component/categories/CategoriesBar'
 import Video from '../../component/video/Video'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPopularVideo } from '../../redux/action/video.action'
-
+import { getPopularVideo, getVideoByCategory } from '../../redux/action/video.action'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import SkeletonVideo from '../../component/skeleton/SkeletonVideo'
 const HomeSreen = () => {
-    const dispatch=useDispatch()
-    useEffect(()=>{
+    const dispatch = useDispatch()
+    useEffect(() => {
         dispatch(getPopularVideo())
-    },[dispatch])
-    const {videos} =useSelector(state=>state.homeVideos)
+    }, [dispatch])
+    const { videos, activeCategory, loading } = useSelector(state => state.homeVideos)
+    const fetchData = () => {
+        if (activeCategory === 'All')
+            dispatch(getPopularVideo())
+        else {
+            dispatch(getVideoByCategory(activeCategory))
+        }
+    }
     return (
-        <Container className=''>
+        <Container>
             <CategoriesBar />
-            <Row>
-                {videos.map((video) => (
-                    <Col lg={3} md={4} key={video.id}>
-                        <Video video={video}  />
+            <InfiniteScroll
+                dataLength={videos.length}
+                next={fetchData}
+                hasMore={true}
+                loader={
+                    <div className='spinner-border text-danger d-block mx-auto '></div>
+                }
+                className='row'
+            >
+                {!loading ? videos.map((video, index) => (
+                    <Col lg={3} md={4} key={index}>
+                        <Video video={video} />
                     </Col>
-
-                    
-))}
-            </Row>
+                ))
+                    :
+                    [...Array(20).map(() =>
+                        <Col lg={3} md={4}>
+                           <SkeletonVideo/>
+                        </Col>
+                    )]
+                }
+            </InfiniteScroll>
         </Container>
     )
 }

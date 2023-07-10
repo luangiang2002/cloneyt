@@ -4,9 +4,6 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { authReducer } from './reducer/auth.reducer'
 import { homeVideoReducer } from './reducer/video.reducer'
-const initialState = {
-
-}
 const rootReducer = combineReducers({
     auth: authReducer,
     homeVideos:homeVideoReducer

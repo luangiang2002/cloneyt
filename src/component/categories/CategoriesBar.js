@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './categoriesBar.scss'
 import { useDispatch } from 'react-redux'
-import { getVideoByCategory } from '../../redux/action/video.action'
+import { getPopularVideo, getVideoByCategory } from '../../redux/action/video.action'
 
   const keyword=[
     'All',
-    'React js',
+    'Âm nhạc',
     'Angular js',
     'React Native',
     'use of API',
@@ -29,7 +29,12 @@ import { getVideoByCategory } from '../../redux/action/video.action'
 
     const handleClick=(value)=>{
       setActiveElement(value)
-      dispatch(getVideoByCategory(value))
+      if(value==='All'){
+        dispatch(getPopularVideo())
+      }
+      else{
+        dispatch(getVideoByCategory(value))
+      }
     }
   return (
     <div className="CategoriesBar">
