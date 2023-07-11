@@ -13,7 +13,7 @@ const WatchScreen = () => {
     useEffect(()=>{
         dispatch(getVideoId(id))
     },[dispatch,id])
-    const {video,loading}=useSelector(state=>state.selectedVideo)
+    const {videos, loading } = useSelector(state => state.selectedVideo)
     return (
         <Row>
             <Col lg={8}>
@@ -21,15 +21,14 @@ const WatchScreen = () => {
                     <iframe width="100%" height="100%"
                         src={`https://www.youtube.com/embed/${id}`}
                         frameborder="0"
-                        title={video?.snippet?.title}
+                        title={videos?.snippet?.title}
                         allowFullScree
                         >
                     </iframe>
                 </div>
                 {
-                    !loading?<VideoMetaDta video={video} videoId={id} />:<h6>Loading</h6>
+                    !loading?<VideoMetaDta videos={videos} videoId={id} />:<h6>Loading</h6>
                 }
-                <VideoMetaDta/>
                 <Comments/>
             </Col>
             <Col lg={4}>

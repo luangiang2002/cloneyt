@@ -14,16 +14,30 @@
 // export const auth=getAuth(app)
 // export const providerGoogle = new GoogleAuthProvider();
 
+// import { initializeApp } from "firebase/app";
+// import {getAuth,GoogleAuthProvider} from 'firebase/auth';
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBizpZ0qESHFtUtjufOST1CwQMV1lEeyFc",
+//   authDomain: "my-app-2091b.firebaseapp.com",
+//   projectId: "my-app-2091b",
+//   storageBucket: "my-app-2091b.appspot.com",
+//   messagingSenderId: "382672279615",
+//   appId: "1:382672279615:web:f84f6acffbd3f0f9d1808a"
+// };
+
+// const app = initializeApp(firebaseConfig);
+// export const auth=getAuth(app)
+// export const providerGoogle = new GoogleAuthProvider();
+
 import { initializeApp } from "firebase/app";
 import {getAuth,GoogleAuthProvider} from 'firebase/auth';
 const firebaseConfig = {
-  apiKey: "AIzaSyDoLSHrj5PspCAYGAwaJsVmi3X5MMtuEc4",
-  authDomain: "my-app-c62ba.firebaseapp.com",
-  projectId: "my-app-c62ba",
-  storageBucket: "my-app-c62ba.appspot.com",
-  messagingSenderId: "385159583983",
-  appId: "1:385159583983:web:8a5d678b44d621ce26231a",
-  measurementId: "G-18D9SVGD8X"
+  apiKey: "AIzaSyCrNPbKFADEWzEEP3YjlxVEZ9s4FRHmNIM",
+  authDomain: "my-app-3-c895c.firebaseapp.com",
+  projectId: "my-app-3-c895c",
+  storageBucket: "my-app-3-c895c.appspot.com",
+  messagingSenderId: "576651272147",
+  appId: "1:576651272147:web:89fbeec736b81595c55926"
 };
 
 const app = initializeApp(firebaseConfig);

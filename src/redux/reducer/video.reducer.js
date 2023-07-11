@@ -37,31 +37,30 @@ export const homeVideoReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const selectVideoReducer = (
-    state = {
+const initilVideo={
         loading: true,
-        video: null
-    },
-    action
-) => {
+        videos: null
+}
+export const selectVideoReducer = ( state =initilVideo,action) => {
     const { payload, type } = action
     switch (type) {
-        case SELECTED_VIDEOS_REQUEST:
-            return {
-                ...state,
-                loading: true
-            }
+        
         case SELECTED_VIDEO_SUCCESS:
             return {
                 ...state,
+                videos:payload,
                 loading: false,
-                video:payload
+            }
+            case SELECTED_VIDEOS_REQUEST:
+            return {
+                ...state,
+                loading: true
             }
         case SELECTED_VIDEOS_FAIL:
             return {
                 ...state,
                 loading: false,
-                video:null,
+                videos:null,
                 error:payload,
             }
 

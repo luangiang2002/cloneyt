@@ -70,7 +70,7 @@ export const getVideoId=(id)=>async dispatch=>{
         })
         const {data}=await request('/videos',{
             params:{
-                part:'snippet,contentDetails',
+                part:'snippet,statistics',
                 id:id
             }
         })

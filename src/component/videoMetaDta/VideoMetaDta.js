@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './videoMetaDta.scss'
 import moment from 'moment'
 
@@ -6,13 +6,23 @@ import numeral from 'numeral'
 
 import { MdThumbUp, MdThumbDown } from 'react-icons/md'
 import ShowMoretext from 'react-show-more-text'
-const VideoMetaDta = ({ video: { snippet, statistics }, videoId }) => {
-  const {channelId,channelTitle,description,title,publishedAt} =snippet
-  const {viewCount,likeCount,dislikeCount}=statistics
+import { useDispatch, useSelector } from 'react-redux'
+import { chackSubscripttionStatus, getChannelDetails } from '../../redux/action/chanel.action'
+const VideoMetaDta = ({ videos: { snippet, statistics }, videoId }) => {
+  // console.log(videos,videoId);
+  const { channelId, channelTitle, description, title, publishedAt } = snippet
+  const { viewCount, likeCount, dislikeCount } = statistics
+  const { snippet: channelSnippet, statistics: channelStatistics } = useSelector(state => state.channelDetail.channel)
+  const subscriptionStatus=useSelector(state=>state.channelDetail.subscriptionStatus)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getChannelDetails(channelId))
+    dispatch(chackSubscripttionStatus(channelId))
+  }, [dispatch, channelId])
   return (
     <div className="VideoMetaDta py-2">
       <div className="viVideoMetaDta_top">
-        <h5>Video title</h5>
+        <h5>{title}</h5>
         <div className="d-flex justify-content-between alain-ites-center py-1">
           <span>
             {numeral(viewCount).format('0.a')} Views  *
@@ -30,14 +40,14 @@ const VideoMetaDta = ({ video: { snippet, statistics }, videoId }) => {
       </div>
       <div className="VideoMetaDta_channel d-flex justify-content-between alain-items-center my-2 py-3">
         <div className="d-flex">
-          <img src="https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png"
+          <img src={channelSnippet?.thumbnails?.default?.url}
             alt="avatar" className='rounder-circle mr-3' />
           <div className="d-flex flex-column">
             <span>{channelTitle}</span>
-            <span>{numeral(2000).format('0.a')} Subscribers </span>
+            <span>{numeral(channelStatistics?.subscriberCount).format('0.a')} Subscribers </span>
           </div>
-          <button className='btn border-0 p-2 m-2'>
-            Subscribe
+          <button className={`btn border-0 p-2 m-2 ${subscriptionStatus && 'btn-gray'}`}>
+           {subscriptionStatus?'Subscribed':'Subscriber'}
           </button>
         </div>
       </div>
@@ -49,7 +59,7 @@ const VideoMetaDta = ({ video: { snippet, statistics }, videoId }) => {
           anchorClass='showMoreText'
           expanded={false}
         >
-         {description}
+          {description}
         </ShowMoretext>
       </div>
     </div>
